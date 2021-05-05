@@ -1,4 +1,7 @@
+import { Grid, Paper, Typography } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
+import Post from "./Post";
+
 
 const TestApi = (props) => {
   const [State, setState] = useState([
@@ -20,22 +23,48 @@ const TestApi = (props) => {
         setState(data);
         console.log(data);
       });
-  },[setState]);
+  }, [setState]);
 
-  const liElement = (key) => {
+  const PostHandler = (key) => {
     let arr = [];
-    for (let i = 0; i < State.length; i++){
-      arr.push(<li>{State[i].[key]}</li>)
+    for (let i = 0; i < State.length; i++) {
+      arr.push(
+        <Post 
+          title={State[i].title}
+          userId={State[i].userId}
+          body={State[i].body}
+        />
+      );
     }
     return arr;
-  }
- 
+  };
 
   return (
-    <ul>
-      {liElement("id")}
-    </ul>
+    <Grid
+      container
+      direction="cloumn"
+      justify="flex-start"
+      alignItems="center"
+      spacing={4}
+    >
+      {PostHandler()}
+    </Grid>
   );
 };
 
 export default TestApi;
+
+/*         <Grid item container>
+          <Grid item>
+            <Typography>{State.userId}</Typography>
+          </Grid>
+          <Grid item>
+            <Typography>{State.id}</Typography>
+          </Grid>
+          <Grid item>
+            <Typography>{State.title}</Typography>
+          </Grid>
+          <Grid item>
+            <Typography>{State.body}</Typography>
+          </Grid>
+        </Grid>  */

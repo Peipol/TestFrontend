@@ -1,10 +1,10 @@
-import React from 'react';
+import {Typography } from "@material-ui/core";
+import React from "react";
 
 const Header = () => {
   return (
-     <div 
-      style={{ backgroundColor: 'hotpink', height: '10vh',width: "100%"}} 
-    />);
-}
- 
+      <Typography variant="h1">Technical Test</Typography>
+  );
+};
+
 export default Header;

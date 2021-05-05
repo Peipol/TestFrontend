@@ -1,22 +1,22 @@
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Header from "./Components/Header";
 import NavBar from "./Components/NavBar";
-import TestAPI from "./Components/testAPI"
+import TestAPI from "./Components/testAPI";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: "hotpink",
-    height: "100vh",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     backgroundColor: "hotpink",
+//     height: "100vh",
+//   },
+// }));
 
 function App() {
-  const classes = useStyles();
-  const { root } = classes;
+  // const classes = useStyles();
+  // const { root } = classes;
   return (
     <React.Fragment>
       <CssBaseline />
@@ -26,25 +26,24 @@ function App() {
           direction="column"
           justify="flex-start"
           alignItems="center"
-          style={{width:"inherit"}}
+          style={{ width: "inherit" }}
+          spacing={1}
         >
-          <Grid item xs={12} style={{width:"inherit"}}>
+          <Grid item xs={12}>
             <Header />
           </Grid>
-          <Grid item style={{width:"inherit"}}>
+          <Grid item xs={12}>
             <NavBar />
           </Grid>
-          <Grid item style={{width:"inherit"}}>
-            <main style={{width:"inherit", height: "85vh"}}>
-              {/* <div style={
+          <Grid item xs={12}>
+            {/* <div style={
                 {
                   backgroundColor: "gray",
                   height: "100%",
                   width: "100%",
                 }
               }/> */}
-              <TestAPI/>
-            </main>
+            <TestAPI />
           </Grid>
         </Grid>
       </Container>
