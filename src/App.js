@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Header from "./Components/Header";
 import NavBar from "./Components/NavBar";
+import TestAPI from "./Components/testAPI"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,13 +36,14 @@ function App() {
           </Grid>
           <Grid item style={{width:"inherit"}}>
             <main style={{width:"inherit", height: "85vh"}}>
-              <div style={
+              {/* <div style={
                 {
                   backgroundColor: "gray",
                   height: "100%",
                   width: "100%",
                 }
-              }/>
+              }/> */}
+              <TestAPI/>
             </main>
           </Grid>
         </Grid>
