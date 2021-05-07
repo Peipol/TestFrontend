@@ -41,7 +41,7 @@ const TestApi = (props) => {
         setState(data);
         console.log(data);
       });
-  }, [setState]);
+  }, []);
 
 
   const PostHandler = (key) => {
