@@ -1,16 +1,20 @@
 import React from "react";
-import {Breadcrumbs,Link, Typography} from "@material-ui/core"
+import { Breadcrumbs, Link, Typography } from "@material-ui/core";
+
+const TG = (props) => (
+  <Typography variant={props.variant} style={props.style}>
+    {props.content}
+  </Typography>
+);
+
 const NavBar = () => {
   return (
     <Breadcrumbs aria-label="breadcrumb">
-    <Link color="inherit" href="/" onClick={()=> console.log('click')}>
-      Testing GET
-    </Link>
-    <Link color="inherit" href="/getting-started/installation/" onClick={()=> console.log('click')}>
-      Testing POST
-    </Link>
-    <Typography color="textPrimary">Testing DELETE</Typography>
-  </Breadcrumbs>
+      <TG variant="body1" content="GET" />
+      <TG variant="body1" content="POST" />
+      <TG variant="body1" content="PUT" />
+      <TG variant="body1" content="DELETE" />
+    </Breadcrumbs>
   );
 };
 
