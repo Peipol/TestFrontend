@@ -5,7 +5,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Header from "./Components/Header";
 import NavBar from "./Components/NavBar";
-import Content from "./Components/Utilities/Content";
+import Content from "./Components/Content";
 
 const GI = (props) => <Grid item xs={props.xs}>{props.content}</Grid>
 
