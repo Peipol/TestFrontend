@@ -1,43 +1,35 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Paper, Typography, Divider } from "@material-ui/core";
+import React from "react";
+// import { makeStyles } from "@material-ui/core/styles";
+import  Grid from "@material-ui/core/Grid";
+import Divider from "./Utilities/Divider";
+import Gtypography from "./Utilities/Gtypography";
 
-const useStyles = makeStyles((theme) => ({
-  container: {},
-}));
+// const useStyles = makeStyles((theme) => ({
+//   container: {},
+// }));
 
 const Post = (props) => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const { title, userId, body } = props;
   return (
     <React.Fragment>
+      <Divider w="75%" />
       <Grid
-        className={classes.container}
+        className
         item
         container
         direction="row"
         justify="space-evenly"
         alignItems="center"
       >
-        <Divider style={{ width: "75%" }} />
-      </Grid>
-      <Grid
-        className={classes.container}
-        item
-        container
-        direction="row"
-        justify="space-evenly"
-        alignItems="center"
-      >
-        <Grid item xs={6}>
-          <Typography variant="h6">{title}</Typography>
-        </Grid>
-        <Grid item xs>
-          <Typography variant="caption">{userId}</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="body1">{body}</Typography>
-        </Grid>
+        <Gtypography xs={6} variant="h6" content={title} />
+        <Gtypography
+          xs={true}
+          variant="caption"
+          style={{ paddingLeft: "4rem" }}
+          content={userId}
+        />
+        <Gtypography xs={12} variant="body1" content={body} />
       </Grid>
     </React.Fragment>
   );
