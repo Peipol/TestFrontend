@@ -1,6 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import React, { useState, useEffect } from "react";
 import Post from "../Post";
+import TextBox from "../TextBox";
 import axios from "axios";
 const TestApi = (props) => {
   // State
@@ -12,26 +13,33 @@ const TestApi = (props) => {
       body: "",
     },
   ]);
-  // API Handling
-  const SimulatedPost = () => {
-    const apiUrl = "https://jsonplaceholder.typicode.com/posts";
-    axios
-      .post(apiUrl, {
-        userId: 77,
-        id: 1,
-        title: "Hola vale",
-        body: "Me llamo Pablito",
-      })
-      .then((response) => response.data)
-      .then((data) => {
-        setState([data,...State]);
-        console.log("This the post",[data,...State])
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
+  //Posting text State
+  const [userId, setUserId] = useState("");
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  // Post Simulation
+  // const SimulatedPost = () => {
+  //   const apiUrl = "https://jsonplaceholder.typicode.com/posts";
+  //   axios
+  //     .post(apiUrl, {
+  //       userId: 0,
+  //       id: 0,
+  //       title: "Hacer clic arriba para hacer prueba del POST",
+  //       body: "Prueba tecnica de Tbet",
+  //     })
+  //     .then((response) => response.data)
+  //     .then((data) => {
+  //       setState([data, ...State]);
+  //       console.log("This the post", [data, ...State]);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });s
+  // };
+
+  // Getting Data from API
   useEffect(() => {
     const apiUrl = "https://jsonplaceholder.typicode.com/posts";
     axios
@@ -43,24 +51,76 @@ const TestApi = (props) => {
       });
   }, []);
 
+  //New Post
+  //Text box change handling
+  const handleChange = (e) => {
+    const type = e.target.id;
+    const value = e.target.value;
+    type === "title"
+    ? setTitle(value)
+    : type === "user"
+    ? setUserId(value)
+    : type === "body"
+    ? setBody(value)
+    : console.error("not a valid type");
+  };
+  //Posting
+  const handlePost = () => {
+    const apiUrl = "https://jsonplaceholder.typicode.com/posts";
+    axios
+      .post(apiUrl, {
+        userId: userId,
+        title: title,
+        body: body,
+      })
+      .then((response) => response.data)
+      .then((data)=>{
+        const newState = [...State];
+        newState.unshift(data)
+        setState(newState);
+      });
+  };
 
+  // Delete Post
+  const handleDelete = (i) => {
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/posts/${State[i].id}`)
+      .then((response) => response.status)
+      .then((status) => {
+        const oldState = [...State];
+        status === 200
+          ? setState(oldState.filter((e) => e !== oldState[i]))
+          : console.error("error");
+      });
+  };
+
+  // Edit Post
+  const handleEdit = (i) => {
+    axios
+      .put(`https://jsonplaceholder.typicode.com/posts/${State[i].id}`, {
+        userId: State[i].userId,
+        id: State[i].id,
+        title: "foo",
+        body: "bar",
+      })
+      .then((res) => res.data)
+      .then((data) => {
+        const newState = [...State];
+        const filter = newState.filter((e) => e.id === State[i].id);
+        const index = newState.indexOf(filter[0]);
+        newState[index] = data;
+        setState(newState);
+      });
+  };
+
+  //Posts array
   const PostHandler = (key) => {
     let arr = [];
     for (let i = 0; i < State.length; i++) {
       arr.push(
         <Post
-          handleClick={()=>{
-            console.log('click outside')
-            axios.delete(`https://jsonplaceholder.typicode.com/posts/${State[i].id}`)
-              .then((res)=>res.status)
-              .then(
-                (status)=>{ 
-                const oldState = [...State];
-                status === 200
-                  ? setState(oldState.filter(e=> e !== oldState[i]))
-                  : console.error("error")
-                })
-          }}
+          handleDelete={() => handleDelete(i)}
+          handleEdit={() => handleEdit(i)}
           title={State[i].title}
           userId={State[i].userId}
           body={State[i].body}
@@ -69,8 +129,6 @@ const TestApi = (props) => {
     }
     return arr;
   };
-
-  // SimulatedPost();
 
   // Rendering
   return (
@@ -81,6 +139,8 @@ const TestApi = (props) => {
       alignItems="center"
       spacing={4}
     >
+      <TextBox handlePost={()=>handlePost()} handleChange={(e) => handleChange(e)} />
+
       {PostHandler()}
     </Grid>
   );
