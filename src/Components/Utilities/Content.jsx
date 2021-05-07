@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Post from "../Post";
 import TextBox from "../TextBox";
 import axios from "axios";
+
 const TestApi = (props) => {
   // State
   const [State, setState] = useState([
@@ -19,26 +20,6 @@ const TestApi = (props) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  // Post Simulation
-  // const SimulatedPost = () => {
-  //   const apiUrl = "https://jsonplaceholder.typicode.com/posts";
-  //   axios
-  //     .post(apiUrl, {
-  //       userId: 0,
-  //       id: 0,
-  //       title: "Hacer clic arriba para hacer prueba del POST",
-  //       body: "Prueba tecnica de Tbet",
-  //     })
-  //     .then((response) => response.data)
-  //     .then((data) => {
-  //       setState([data, ...State]);
-  //       console.log("This the post", [data, ...State]);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });s
-  // };
-
   // Getting Data from API
   useEffect(() => {
     const apiUrl = "https://jsonplaceholder.typicode.com/posts";
@@ -51,18 +32,17 @@ const TestApi = (props) => {
       });
   }, []);
 
-  //New Post
-  //Text box change handling
+  //New Post Text box change handling
   const handleChange = (e) => {
     const type = e.target.id;
     const value = e.target.value;
     type === "title"
-    ? setTitle(value)
-    : type === "user"
-    ? setUserId(value)
-    : type === "body"
-    ? setBody(value)
-    : console.error("not a valid type");
+      ? setTitle(value)
+      : type === "user"
+      ? setUserId(value)
+      : type === "body"
+      ? setBody(value)
+      : console.error("not a valid type");
   };
   //Posting
   const handlePost = () => {
@@ -74,9 +54,9 @@ const TestApi = (props) => {
         body: body,
       })
       .then((response) => response.data)
-      .then((data)=>{
+      .then((data) => {
         const newState = [...State];
-        newState.unshift(data)
+        newState.unshift(data);
         setState(newState);
       });
   };
@@ -100,8 +80,8 @@ const TestApi = (props) => {
       .put(`https://jsonplaceholder.typicode.com/posts/${State[i].id}`, {
         userId: State[i].userId,
         id: State[i].id,
-        title: "foo",
-        body: "bar",
+        title: title,
+        body: body,
       })
       .then((res) => res.data)
       .then((data) => {
@@ -139,7 +119,10 @@ const TestApi = (props) => {
       alignItems="center"
       spacing={4}
     >
-      <TextBox handlePost={()=>handlePost()} handleChange={(e) => handleChange(e)} />
+      <TextBox
+        handlePost={() => handlePost()}
+        handleChange={(e) => handleChange(e)}
+      />
 
       {PostHandler()}
     </Grid>
