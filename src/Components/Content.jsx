@@ -1,7 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import React, { useState, useEffect, useRef } from "react";
-import Post from "../Post";
-import TextBox from "../TextBox";
+import Post from "./Post";
+import TextBox from "./TextBox";
 import axios from "axios";
 
 const TestApi = (props) => {
