@@ -3,7 +3,7 @@ import React from "react";
 
 const Header = () => {
   return (
-      <Typography variant="h1">Technical Test</Typography>
+      <Typography align="center" variant="h1">Technical Test</Typography>
   );
 };
 
