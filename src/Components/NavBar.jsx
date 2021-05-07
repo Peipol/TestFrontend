@@ -4,12 +4,12 @@ const NavBar = () => {
   return (
     <Breadcrumbs aria-label="breadcrumb">
     <Link color="inherit" href="/" onClick={()=> console.log('click')}>
-      Material-UI
+      Testing GET
     </Link>
     <Link color="inherit" href="/getting-started/installation/" onClick={()=> console.log('click')}>
-      Core
+      Testing POST
     </Link>
-    <Typography color="textPrimary">Breadcrumb</Typography>
+    <Typography color="textPrimary">Testing DELETE</Typography>
   </Breadcrumbs>
   );
 };
