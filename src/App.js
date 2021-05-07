@@ -7,16 +7,9 @@ import Header from "./Components/Header";
 import NavBar from "./Components/NavBar";
 import Content from "./Components/Content";
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     backgroundColor: "hotpink",
-//     height: "100vh",
-//   },
-// }));
+const GI = (props) => <Grid item xs={props.xs}>{props.content}</Grid>
 
 function App() {
-  // const classes = useStyles();
-  // const { root } = classes;
   return (
     <React.Fragment>
       <CssBaseline />
@@ -29,15 +22,9 @@ function App() {
           style={{ width: "inherit" }}
           spacing={1}
         >
-          <Grid item xs={12}>
-            <Header />
-          </Grid>
-          <Grid item xs={12}>
-            <NavBar />
-          </Grid>
-          <Grid item xs={12}>
-            <Content />
-          </Grid>
+          <GI xs={12} content={<Header/>} />
+          <GI xs={12} content={<NavBar/>} />
+          <GI xs={12} content={<Content/>} />
         </Grid>
       </Container>
     </React.Fragment>
