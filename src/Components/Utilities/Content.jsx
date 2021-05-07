@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Post from "../Post";
 import TextBox from "../TextBox";
 import axios from "axios";
@@ -15,10 +15,12 @@ const TestApi = (props) => {
     },
   ]);
 
-  //Posting text State
-  const [userId, setUserId] = useState("");
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  //Posting text post.
+  const post = useRef({
+    userId: "",
+    title: "Loading...",
+    body: "",
+  });
 
   // Getting Data from API
   useEffect(() => {
@@ -37,11 +39,11 @@ const TestApi = (props) => {
     const type = e.target.id;
     const value = e.target.value;
     type === "title"
-      ? setTitle(value)
+      ? (post.current.title = value)
       : type === "user"
-      ? setUserId(value)
+      ? (post.current.userId = value)
       : type === "body"
-      ? setBody(value)
+      ? (post.current.body = value)
       : console.error("not a valid type");
   };
   //Posting
@@ -49,9 +51,9 @@ const TestApi = (props) => {
     const apiUrl = "https://jsonplaceholder.typicode.com/posts";
     axios
       .post(apiUrl, {
-        userId: userId,
-        title: title,
-        body: body,
+        userId: post.current.userId,
+        title: post.current.title,
+        body: post.current.body,
       })
       .then((response) => response.data)
       .then((data) => {
@@ -76,21 +78,32 @@ const TestApi = (props) => {
 
   // Edit Post
   const handleEdit = (i) => {
-    axios
-      .put(`https://jsonplaceholder.typicode.com/posts/${State[i].id}`, {
-        userId: State[i].userId,
-        id: State[i].id,
-        title: title,
-        body: body,
-      })
-      .then((res) => res.data)
-      .then((data) => {
-        const newState = [...State];
-        const filter = newState.filter((e) => e.id === State[i].id);
-        const index = newState.indexOf(filter[0]);
-        newState[index] = data;
-        setState(newState);
-      });
+    if (State[i].id !== 101) {
+      console.log(State[i].id);
+      axios
+        .put(`https://jsonplaceholder.typicode.com/posts/${State[i].id}`, {
+          userId: State[i].userId,
+          id: State[i].id,
+          title: post.current.title,
+          body: post.current.body,
+        })
+        .then((res) => res.data)
+        .then((data) => {
+          const newState = [...State];
+          const filter = newState.filter((e) => e.id === State[i].id);
+          const index = newState.indexOf(filter[0]);
+          newState[index] = data;
+          setState(newState);
+        });
+    } else {
+      // this conditional is to handle the use of a mock API
+      console.log(State[i].id)
+      const newState = [...State];
+      const filter = newState.filter((e) => e.id === State[i].id);
+      const index = newState.indexOf(filter[0]);
+      newState[index] = post.current;
+      setState(newState);
+    }
   };
 
   //Posts array
