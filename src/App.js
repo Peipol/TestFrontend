@@ -5,7 +5,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Header from "./Components/Header";
 import NavBar from "./Components/NavBar";
-import TestAPI from "./Components/testAPI";
+import Content from "./Components/Content";
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -36,14 +36,7 @@ function App() {
             <NavBar />
           </Grid>
           <Grid item xs={12}>
-            {/* <div style={
-                {
-                  backgroundColor: "gray",
-                  height: "100%",
-                  width: "100%",
-                }
-              }/> */}
-            <TestAPI />
+            <Content />
           </Grid>
         </Grid>
       </Container>
