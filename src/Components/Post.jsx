@@ -30,6 +30,7 @@ const Post = (props) => {
           content={userId}
         />
         <Gtypography xs={12} variant="body1" content={body} />
+        <Grid item><button onClick={props.handleClick}>Delete</button></Grid>
       </Grid>
     </React.Fragment>
   );
