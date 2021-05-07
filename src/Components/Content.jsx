@@ -1,27 +1,26 @@
 import Grid from "@material-ui/core/Grid";
 import React, { useState, useEffect } from "react";
 import Post from "./Post";
-
-const TestApi = (props) => {
+import axios from "axios";
+const Content = (props) => {
   // State
   const [State, setState] = useState([
     {
       userId: "",
       id: "",
-      title:
-        "Loading...",
-      body:
-        "",
+      title: "Loading...",
+      body: "",
     },
   ]);
   // API Handling
   useEffect(() => {
     const apiUrl = "https://jsonplaceholder.typicode.com/posts";
-    fetch(apiUrl)
-      .then((response) => response.json())
+    axios
+      .get(apiUrl)
+      .then((response) => response.data)
       .then((data) => {
         setState(data);
-        // console.log(data);
+        console.log(data);
       });
   }, [setState]);
 
@@ -53,4 +52,4 @@ const TestApi = (props) => {
   );
 };
 
-export default TestApi;
+export default Content;
