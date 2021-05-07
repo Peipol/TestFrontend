@@ -1,35 +1,36 @@
-import { Grid, Paper, Typography } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import React, { useState, useEffect } from "react";
 import Post from "./Post";
 
-
 const TestApi = (props) => {
+  // State
   const [State, setState] = useState([
     {
-      userId: 1,
-      id: 1,
+      userId: "",
+      id: "",
       title:
-        "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+        "Loading...",
       body:
-        "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+        "",
     },
   ]);
-
+  // API Handling
   useEffect(() => {
     const apiUrl = "https://jsonplaceholder.typicode.com/posts";
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
         setState(data);
-        console.log(data);
+        // console.log(data);
       });
   }, [setState]);
 
+  // Posts creation
   const PostHandler = (key) => {
     let arr = [];
     for (let i = 0; i < State.length; i++) {
       arr.push(
-        <Post 
+        <Post
           title={State[i].title}
           userId={State[i].userId}
           body={State[i].body}
@@ -38,7 +39,7 @@ const TestApi = (props) => {
     }
     return arr;
   };
-
+  // Rendering
   return (
     <Grid
       container
@@ -53,18 +54,3 @@ const TestApi = (props) => {
 };
 
 export default TestApi;
-
-/*         <Grid item container>
-          <Grid item>
-            <Typography>{State.userId}</Typography>
-          </Grid>
-          <Grid item>
-            <Typography>{State.id}</Typography>
-          </Grid>
-          <Grid item>
-            <Typography>{State.title}</Typography>
-          </Grid>
-          <Grid item>
-            <Typography>{State.body}</Typography>
-          </Grid>
-        </Grid>  */
